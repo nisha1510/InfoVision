@@ -1,0 +1,43 @@
+package com.smarttelecom.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "users")
+public class User {
+	
+	@Id
+	@Column(name = "user_id")
+    private String id;
+	
+	@Column(name = "user_role")
+    private String name;
+	
+    private String email;
+    
+    private String phone;
+    
+    @Column(name = "user_role")
+    private String role;		//ADMIN or User
+    
+    @Column(name = "plan_id")
+    private String planId;
+
+	public User(String id, String name, String email, String phone, String role, String planId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.role = role;
+		this.planId = planId;
+	}
+
+	public User() {
+		super();
+	}
+    
+    
+}

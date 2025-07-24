@@ -1,0 +1,22 @@
+package com.auth.service.serviceImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.auth.service.services.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+	
+	 @Autowired private UserRepository repo;
+
+	    public User register(User user) {
+	        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+	        return repo.save(user);
+	    }
+
+	    public User login(String username, String rawPassword) {
+	        User user = repo.findByUsername(username).orElseThrow();
+	        if (new BCryptPasswordEncoder().matches(rawPassword, user.getPassword())) return user;
+	        else throw new RuntimeException("Invalid password");
+	    }
+}

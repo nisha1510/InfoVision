@@ -1,0 +1,35 @@
+package com.smarttelecom.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.smarttelecom.dto.UserDto;
+import com.smarttelecom.entity.User;
+import com.smarttelecom.exception.UserNotFoundException;
+import com.smarttelecom.mapper.UserMapper;
+import com.smarttelecom.repository.UserRepository;
+import com.smarttelecom.service.UserService;
+
+public class ServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepository repo;
+
+	@Autowired 
+	private UserMapper mapper;
+
+    public UserDto getUser(String id) {
+        User user = repo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return mapper.toDTO(user);
+    }
+
+    public UserDto updateUser(UserDto dto) {
+        User user = mapper.toEntity(dto);
+        return mapper.toDTO(repo.save(user));
+    }
+
+    public List<UserDto> getAllUsers() {
+        return repo.findAll().stream().map(mapper::toDTO).toList();
+    }
+}

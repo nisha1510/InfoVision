@@ -1,0 +1,13 @@
+package com.smarttelecom.services;
+
+import java.util.List;
+
+import com.smarttelecom.dto.PlanDTO;
+
+public interface PlanService {
+	
+	public PlanDTO createPlan(PlanDTO dto);
+	
+	public List<PlanDTO> getAllPlans();
+
+}

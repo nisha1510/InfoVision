@@ -1,0 +1,48 @@
+package com.smarttelecom.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smarttelecom.client.UserClient;
+import com.smarttelecom.dto.UsageLogDTO;
+import com.smarttelecom.dto.UserDTO;
+import com.smarttelecom.entity.UsageLog;
+import com.smarttelecom.repository.UsageLogRepository;
+
+@Service
+public class UsageLogServiceImpl {
+
+    @Autowired 
+    private UsageLogRepository repo;
+    @Autowired 
+    private UserClient userClient;
+
+//    public UsageLogDTO saveLog(UsageLogDTO dto) {
+//        // Validate user exists
+//        UserDTO user = userClient.getUserById(dto.getUserId());
+//
+//        UsageLog log = new UsageLog(null, dto.getUserId(), dto.getDate(), dto.getCallDuration(), dto.getDataUsed(), dto.getSmsCount());
+//        return toDTO(repo.save(log));
+//    }
+    
+    public UsageLogDTO saveLog(UsageLogDTO dto) {
+        UsageLog log = new UsageLog(null, dto.getUserId(), dto.getDate(), dto.getCallDuration(), dto.getDataUsed(), dto.getSmsCount());
+        return toDTO(repo.save(log));
+    }
+    
+    public List<UsageLogDTO> getLogsByUser(String userId) {
+        return repo.findByUserId(userId).stream().map(this::toDTO).toList();
+    }
+
+    private UsageLogDTO toDTO(UsageLog log) {
+        UsageLogDTO dto = new UsageLogDTO();
+        dto.setUserId(log.getUserId());
+        dto.setDate(log.getDate());
+        dto.setCallDuration(log.getCallDuration());
+        dto.setDataUsed(log.getDataUsed());
+        dto.setSmsCount(log.getSmsCount());
+        return dto;
+    }
+}

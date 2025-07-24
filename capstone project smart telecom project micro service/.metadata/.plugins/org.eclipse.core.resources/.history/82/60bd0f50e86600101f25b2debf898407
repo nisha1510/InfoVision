@@ -1,0 +1,29 @@
+package com.smarttelecom.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smarttelecom.client.PlanClient;
+import com.smarttelecom.dto.PlanDTO;
+import com.smarttelecom.dto.UserWithPlanDTO;
+import com.smarttelecom.entity.User;
+import com.smarttelecom.repository.UserRepository;
+
+@Service
+public class ServiceImpl {
+	@Autowired
+	private UserRepository repo;
+
+	@Autowired
+	private PlanClient planClient;
+
+	public UserWithPlanDTO getUserWithPlan(String userId) {
+		User user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+		PlanDTO plan = planClient.getPlanById(user.getPlanId());
+
+		return new UserWithPlanDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getRole(),
+				plan);
+	}
+
+}

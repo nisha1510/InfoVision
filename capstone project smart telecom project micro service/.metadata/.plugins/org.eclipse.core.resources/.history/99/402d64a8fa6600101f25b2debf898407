@@ -1,0 +1,32 @@
+package com.smarttelecom.serviceImpl;
+
+@Service
+public class UsageServiceImpl {
+
+    @Autowired 
+    private UsageLogRepository repo;
+    @Autowired 
+    private UserClient userClient;
+
+    public UsageLogDTO saveLog(UsageLogDTO dto) {
+        // Validate user exists
+        UserDTO user = userClient.getUser(dto.getUserId());
+
+        UsageLog log = new UsageLog(null, dto.getUserId(), dto.getDate(), dto.getCallDuration(), dto.getDataUsed(), dto.getSmsCount());
+        return toDTO(repo.save(log));
+    }
+
+    public List<UsageLogDTO> getLogsByUser(String userId) {
+        return repo.findByUserId(userId).stream().map(this::toDTO).toList();
+    }
+
+    private UsageLogDTO toDTO(UsageLog log) {
+        UsageLogDTO dto = new UsageLogDTO();
+        dto.setUserId(log.getUserId());
+        dto.setDate(log.getDate());
+        dto.setCallDuration(log.getCallDuration());
+        dto.setDataUsed(log.getDataUsed());
+        dto.setSmsCount(log.getSmsCount());
+        return dto;
+    }
+}

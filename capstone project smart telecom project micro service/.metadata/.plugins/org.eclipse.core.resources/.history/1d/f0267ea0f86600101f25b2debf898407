@@ -1,0 +1,13 @@
+package com.smarttelecom.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.smarttelecom.entity.UsageLog;
+
+public interface UsageLogRepository extends JpaRepository<UsageLog, String> {
+    
+	List<UsageLog> findByUserId(String userId);
+
+}

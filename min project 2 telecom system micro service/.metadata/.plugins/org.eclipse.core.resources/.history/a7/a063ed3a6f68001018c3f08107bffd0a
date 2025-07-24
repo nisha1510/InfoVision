@@ -1,0 +1,28 @@
+package com.telecom.recharge.controller;
+import com.telecom.recharge.entity.Recharge;
+import com.telecom.recharge.service.RechargeService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/recharges")
+@RequiredArgsConstructor
+public class RechargeController {
+
+    private final RechargeService service;
+
+    @PostMapping("/{customerId}")
+    public ResponseEntity<Recharge> createRecharge(@PathVariable Long customerId,
+                                                   @RequestParam Long planId) {
+        Recharge recharge = service.createRecharge(customerId, planId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(recharge);
+    }
+
+    @GetMapping("/{customerId}")
+    public List<Recharge> getRechargeHistory(@PathVariable Long customerId) {
+        return service.getHistory(customerId);
+    }
+}

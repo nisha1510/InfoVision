@@ -1,0 +1,54 @@
+package com.telecom.customer.controller;
+
+
+import com.telecom.customer.entity.Customer;
+import com.telecom.customer.service.CustomerService;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/customers")
+@RequiredArgsConstructor
+public class CustomerController {
+
+	@Autowired
+    private final CustomerService service;
+
+    @GetMapping
+    public List<Customer> getAll() { 
+    	return service.getAll(); 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
+
+//    @PostMapping
+//    public ResponseEntity<Customer> create(@RequestBody Customer customer) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(customer));
+//    }
+    @PostMapping
+    public ResponseEntity<Customer> create(@RequestBody Customer customer) {
+        Customer saved = service.save(customer);  
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer customer) {
+        customer.setId(id);
+        return ResponseEntity.ok(service.save(customer));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+}

@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: plan-service
+          uri: http://localhost:9001
+          predicates:
+            - Path=/plans/**
+
+        - id: user-service
+          uri: http://localhost:9002
+          predicates:
+            - Path=/users/**
+
+        - id: usage-service
+          uri: http://localhost:9003
+          predicates:
+            - Path=/usage/**
+
+        - id: billing-service
+          uri: http://localhost:9004
+          predicates:
+            - Path=/billing/**
+
+        - id: authentication-service
+          uri: http://localhost:9000
+          predicates:
+            - Path=/auth/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

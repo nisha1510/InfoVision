@@ -1,0 +1,5 @@
+package com.smarttelecom.service;
+
+public class BillingService {
+
+}

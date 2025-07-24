@@ -1,0 +1,18 @@
+package com.smarttelecom.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+import com.smarttelecom.dto.UserDTO;
+
+@FeignClient(name = "user-service", url = "http://localhost:9002")
+public interface UserClient {
+	
+	@GetMapping("/users/{userId}")
+    UserDTO getUser(@PathVariable("userId") String userId);
+	
+//	@GetMapping("/users/me")
+//    UserDTO getUser(@RequestHeader("userId") String userId);
+}

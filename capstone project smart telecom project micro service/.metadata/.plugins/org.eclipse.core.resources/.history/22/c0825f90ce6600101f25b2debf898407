@@ -1,0 +1,5 @@
+package com.smarttelecom.services;
+
+public interface PlanService {
+
+}

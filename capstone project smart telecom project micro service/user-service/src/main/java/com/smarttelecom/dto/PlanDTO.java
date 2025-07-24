@@ -1,0 +1,15 @@
+package com.smarttelecom.dto;
+
+import lombok.Data;
+
+@Data
+public class PlanDTO {
+	
+	private String id;
+    private String name;
+    private String type;
+    private double price;
+    private int validity;
+    private String features;
+    
+}

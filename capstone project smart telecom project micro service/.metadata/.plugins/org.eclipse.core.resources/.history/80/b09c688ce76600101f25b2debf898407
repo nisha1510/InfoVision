@@ -1,0 +1,11 @@
+package com.smarttelecom.serviceImpl;
+
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class ServiceImpl {
+
+
+
+}

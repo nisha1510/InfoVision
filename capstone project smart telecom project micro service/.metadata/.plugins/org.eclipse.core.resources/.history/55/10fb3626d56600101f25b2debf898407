@@ -1,0 +1,46 @@
+package com.smarttelecom.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.smarttelecom.dto.PlanDTO;
+import com.smarttelecom.serviceImpl.PlanServiceImpl;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/plans")
+public class PlanController {
+
+    @Autowired private PlanServiceImpl serviceimpl;
+ 
+
+    @PostMapping
+    public ResponseEntity<PlanDTO> create(@RequestBody @Valid PlanDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(serviceimpl.createPlan(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlanDTO>> getAll() {
+        return ResponseEntity.ok(serviceimpl.getAllPlans());
+    }
+
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<PlanDTO>> getPlansByType(@PathVariable String type) {
+        return ResponseEntity.ok(serviceimpl.getPlansByType(type));
+    }
+
+    @GetMapping("/sorted")
+    public ResponseEntity<List<PlanDTO>> getSorted() {
+        return ResponseEntity.ok(serviceimpl.getSortedPlans());
+    }
+}

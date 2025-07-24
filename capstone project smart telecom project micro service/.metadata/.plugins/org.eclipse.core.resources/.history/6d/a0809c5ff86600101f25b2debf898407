@@ -1,0 +1,5 @@
+package com.smarttelecom.dto;
+
+public class UsageLogDTO {
+
+}

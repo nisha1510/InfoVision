@@ -1,0 +1,47 @@
+package com.smarttelecom.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "plans")
+public class Plan {
+	
+	@Id
+	@Column(name = "plan_id")
+	private String id;
+
+	@Column(name = "plan_name")
+	private String name; // DESCRIPTION
+	
+	@Column(name = "plan_type")
+	private String type; // PREPAID, POSTPAID, DATA_ONLY
+	
+	@Column(name = "price")
+	private double price;
+	
+	@Column(name = "validity_days")
+	private int validity;
+	
+	@Column(name = "features")
+	private String features;
+
+	
+	public Plan() {
+		
+	}
+	public Plan(String id, String name, String type, double price, int validity, String features) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.price = price;
+		this.validity = validity;
+		this.features = features;
+	}
+
+}

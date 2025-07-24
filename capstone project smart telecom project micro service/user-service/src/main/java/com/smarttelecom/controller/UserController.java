@@ -1,0 +1,69 @@
+package com.smarttelecom.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.smarttelecom.dto.UserDto;
+import com.smarttelecom.dto.UserWithPlanDTO;
+import com.smarttelecom.serviceImpl.UserServiceImpl;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+	
+	@Autowired
+	private UserServiceImpl service;
+	
+	@PostMapping
+    public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(dto));
+    }
+	
+	@GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable String id) {
+        return ResponseEntity.ok(service.getUser(id));
+    }
+	
+	@GetMapping("/email/{email}")
+    public ResponseEntity<UserDto> getByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(service.getUserByEmail(email));
+    }
+	
+	@GetMapping("/phone/{phone}")
+    public ResponseEntity<UserDto> getByPhone(@PathVariable String phone) {
+        return ResponseEntity.ok(service.getUserByPhone(phone));
+    }
+	
+//	@GetMapping("/role/{role}")
+//    public ResponseEntity<List<UserDto>> getByRole(@PathVariable String role) {
+//        return ResponseEntity.ok(service.getUsersByRole(role));
+//    }
+	
+	@GetMapping
+    public ResponseEntity<List<UserDto>> getAll() {
+        return ResponseEntity.ok(service.getAllUsers());
+    }
+	
+	@DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        service.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+	
+	@GetMapping("/with-plan/{userId}")
+	public ResponseEntity<UserWithPlanDTO> getUserWithPlan(@PathVariable String userId) {
+	    return ResponseEntity.ok(service.getUserWithPlan(userId));
+	}
+
+}

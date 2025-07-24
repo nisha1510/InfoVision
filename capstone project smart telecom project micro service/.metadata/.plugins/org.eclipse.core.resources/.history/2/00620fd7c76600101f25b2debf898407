@@ -1,0 +1,15 @@
+package com.smarttelecom.mapper;
+
+import com.smarttelecom.dto.UserDto;
+import com.smarttelecom.entity.User;
+
+public class UserMapper {
+	
+	public UserDto toDTO(User user) {
+        return new ModelMapper().map(user, UserDTO.class);
+    }
+
+    public User toEntity(UserDto dto) {
+        return new ModelMapper().map(dto, User.class);
+    }
+}

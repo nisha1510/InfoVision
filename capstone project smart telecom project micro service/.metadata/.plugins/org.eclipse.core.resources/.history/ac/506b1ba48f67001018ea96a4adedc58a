@@ -1,0 +1,5 @@
+package com.smarttelecom.security;
+
+public class JwtAuthenticationFilter {
+
+}

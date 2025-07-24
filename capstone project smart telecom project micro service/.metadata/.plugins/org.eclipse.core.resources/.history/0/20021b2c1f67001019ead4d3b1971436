@@ -1,0 +1,53 @@
+package com.smarttelecom.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.smarttelecom.client.UsageClient;
+import com.smarttelecom.client.UserClient;
+import com.smarttelecom.dto.BillDTO;
+import com.smarttelecom.dto.UsageLogDTO;
+import com.smarttelecom.dto.UserDTO;
+import com.smarttelecom.entity.Bill;
+import com.smarttelecom.repository.BillRepository;
+
+public class BillingService {
+	
+	@Autowired 
+	private BillRepository repo;
+    
+	@Autowired 
+	private UserClient userClient;
+    
+	@Autowired 
+	private UsageClient usageClient;
+	
+    public BillDTO generateBill(String userId) {
+        UserDTO user = userClient.getUser(userId);
+        List<UsageLogDTO> logs = usageClient.getUsageLogs(userId);
+
+        double callRate = 1.0;
+        double dataRate = 0.1;
+        double smsRate = 0.5;
+
+        double totalCall = logs.stream().mapToDouble(l -> l.getCallDuration()).sum() * callRate;
+        double totalData = logs.stream().mapToDouble(l -> l.getDataUsed()).sum() * dataRate;
+        double totalSms = logs.stream().mapToInt(l -> l.getSmsCount()).sum() * smsRate;
+
+        double total = totalCall + totalData + totalSms;
+
+        Bill bill = new Bill(null, userId, LocalDate.now(), totalCall, totalData, totalSms, total, null, null);
+        repo.save(bill);
+
+        return new BillDTO(userId, bill.getBillingDate(), totalCall, totalData, totalSms, total);
+    }
+
+    public List<BillDTO> getBills(String userId) {
+        return repo.findByUserId(userId).stream().map(b -> new BillDTO(
+            b.getUserId(), b.getBillingDate(), b.getTotalCallCharge(),
+            b.getTotalDataCharge(), b.getTotalSmsCharge(), b.getTotalAmount()
+        )).toList();
+    }
+}

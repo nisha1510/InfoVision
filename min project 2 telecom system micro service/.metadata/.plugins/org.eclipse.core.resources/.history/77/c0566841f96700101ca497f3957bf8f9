@@ -1,0 +1,5 @@
+package com.telecom.dto;
+
+public class PlanDTO {
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="D:\capstoneProject\AuthService"/>
+			<item value="D:\capstoneProject\billing-service"/>
+			<item value="D:\capstoneProject\usage-service"/>
+			<item value="D:\capstoneProject\apigateway"/>
+			<item value="D:\capstoneProject\eureka-server"/>
+			<item value="D:\capstoneProject\plan-service"/>
+			<item value="D:\capstoneProject\user-service"/>
+			<item value="D:\capstoneProject\AuthenticationService"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

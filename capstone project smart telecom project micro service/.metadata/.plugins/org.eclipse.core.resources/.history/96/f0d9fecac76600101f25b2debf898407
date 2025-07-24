@@ -1,0 +1,5 @@
+package com.smarttelecom.mapper;
+
+public class UserMapper {
+
+}

@@ -1,0 +1,57 @@
+package com.smarttelecom.serviceImpl;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smarttelecom.client.PlanClient;
+import com.smarttelecom.dto.PlanDTO;
+import com.smarttelecom.dto.UserDto;
+import com.smarttelecom.dto.UserWithPlanDTO;
+import com.smarttelecom.entity.User;
+import com.smarttelecom.repository.UserRepository;
+
+@Service
+public class UserServiceImpl {
+	
+	@Autowired
+	private UserRepository repo;
+	
+	@Autowired
+	private PlanClient planClient;
+	
+	public UserDto createUser(UserDto dto) {
+        dto.setId(UUID.randomUUID().toString());
+        User user = new User(dto.getId(), dto.getName(), dto.getEmail(), dto.getPhone(), dto.getRole(), dto.getPlanId());
+        return toDTO(repo.save(user));
+    }
+	
+	public UserDto updateUser(UserDto dto) {
+        User user = new User(dto.getId(), dto.getName(), dto.getEmail(), dto.getPhone(), dto.getRole(), dto.getPlanId());
+        return toDTO(repo.save(user));
+    }
+	
+	public UserDto getUser(String id) {
+        return toDTO(repo.findById(id).orElseThrow(() -> new RuntimeException("User not found")));
+    }
+	public UserWithPlanDTO getUserWithPlan(String userId) {
+		User user = repo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+		PlanDTO plan = planClient.getPlanById(user.getPlanId());
+
+		return new UserWithPlanDTO(user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getRole(), plan);
+	}
+	
+	private UserDto toDTO(User user) {
+		UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPhone(user.getPhone());
+        dto.setRole(user.getRole());
+        dto.setPlanId(user.getPlanId());
+        return dto;
+    }
+
+}

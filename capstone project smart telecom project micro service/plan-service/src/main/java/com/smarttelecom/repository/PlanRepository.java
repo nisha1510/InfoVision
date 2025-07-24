@@ -1,0 +1,16 @@
+package com.smarttelecom.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.smarttelecom.entity.Plan;
+
+@Repository
+public interface PlanRepository extends JpaRepository<Plan, String> {
+	List<Plan> findByType(String type);
+    List<Plan> findAllByOrderByPriceAsc();
+    Optional<Plan> findByNameAndType(String name, String type);
+}

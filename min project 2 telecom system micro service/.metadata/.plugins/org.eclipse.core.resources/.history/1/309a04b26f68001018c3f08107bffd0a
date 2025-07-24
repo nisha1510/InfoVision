@@ -1,0 +1,10 @@
+package com.telecom.recharge.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
+
+@FeignClient(name = "PLAN-SERVICE")
+public interface PlanClient {
+    @GetMapping("/plans/{id}")
+    PlanDTO getPlanById(@PathVariable Long id);
+}

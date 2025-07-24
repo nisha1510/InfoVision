@@ -1,0 +1,14 @@
+package com.telecom.customer.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.telecom.customer.entity.Customer;
+
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Long>{
+
+	boolean existsByMobile(String mobile);
+	boolean existsByEmail(String email);
+
+}

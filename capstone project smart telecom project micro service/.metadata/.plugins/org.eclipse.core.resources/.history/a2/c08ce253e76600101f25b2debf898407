@@ -1,0 +1,32 @@
+package com.smarttelecom.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import com.smarttelecom.dto.UserDto;
+import com.smarttelecom.entity.User;
+import com.smarttelecom.exception.UserNotFoundException;
+import com.smarttelecom.repository.UserRepository;
+import com.smarttelecom.service.UserService;
+
+public class ServiceImpl {
+
+	@Override
+	public UserDto getUser(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto updateUser(UserDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

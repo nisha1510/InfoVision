@@ -1,0 +1,11 @@
+package com.smarttelecom.client;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "plan-service")
+public interface PlanClient {
+
+    @GetMapping("/plans/{id}")
+    PlanDTO getPlanById(@PathVariable("id") String id);
+}

@@ -1,0 +1,19 @@
+package com.smarttelecom.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.smarttelecom.client.UsageClient;
+import com.smarttelecom.client.UserClient;
+import com.smarttelecom.repository.BillRepository;
+
+public class BillingService {
+	
+	@Autowired 
+	private BillRepository repo;
+    
+	@Autowired 
+	private UserClient userClient;
+    
+	@Autowired 
+	private UsageClient usageClient;
+}

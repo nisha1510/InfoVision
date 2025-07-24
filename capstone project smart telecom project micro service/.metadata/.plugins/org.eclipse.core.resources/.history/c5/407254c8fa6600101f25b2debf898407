@@ -1,0 +1,19 @@
+package com.smarttelecom.entity;
+
+import java.time.LocalDate;
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "usage_logs")
+public class UsageLog {
+	
+	@Id
+    private String id;
+    private String userId;
+    private LocalDate date;
+    private int callDuration; // in minutes
+    private double dataUsed;  // in MB
+    private int smsCount;
+}

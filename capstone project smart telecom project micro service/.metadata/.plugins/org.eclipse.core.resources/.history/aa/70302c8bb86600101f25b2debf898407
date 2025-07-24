@@ -1,0 +1,10 @@
+package com.auth.service.services;
+
+import com.auth.service.entity.User;
+
+public interface UserService {
+	
+	public User register(User user);
+	
+	public User login(String username, String rawPassword);
+}

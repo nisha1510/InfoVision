@@ -1,0 +1,63 @@
+package com.telecom.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.telecom.entity.Plan;
+import com.telecom.repository.PlanRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PlanService {
+	
+	@Autowired
+	private final PlanRepository repo;
+
+    public List<Plan> getAllPlans() {
+    	return repo.findAll(); 
+    }
+
+    public Plan getById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Plan not found"));
+    }
+
+    public Plan createPlan(Plan plan) {
+        validatePlan(plan);
+
+        Optional<Plan> duplicate = repo.findByTypeAndValidityAndPrice(
+            plan.getType(), plan.getValidity(), plan.getPrice());
+
+        if (duplicate.isPresent()) {
+            throw new IllegalArgumentException("Duplicate plan already exists.");
+        }
+
+        return repo.save(plan);
+    }
+    private void validatePlan(Plan plan) {
+        if (plan.getType() == null || plan.getType().isBlank()) {
+            throw new IllegalArgumentException("Plan type is required.");
+        }
+
+        if (plan.getPrice() <= 0) {
+            throw new IllegalArgumentException("Plan price must be greater than zero.");
+        }
+
+        if (plan.getValidity() == null || plan.getValidity().isBlank()) {
+            throw new IllegalArgumentException("Plan validity is required.");
+        }
+
+        if (plan.getDescription() == null || plan.getDescription().isBlank()) {
+            throw new IllegalArgumentException("Plan description is required.");
+        }
+    }
+
+
+    public void delete(Long id) { 
+    	repo.deleteById(id); 
+    }
+}

@@ -1,0 +1,36 @@
+package com.telecom.entity;
+
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "plans")
+public class Plan {
+	 	
+		@Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Column(name="plan_id")
+	    private Long id;
+
+		@Column(name="type")
+	    private String type;//DATA, TALKTIME, COMBO
+	    
+		private double price;
+	    
+		@Column(name="validity_days")
+		private String validity;//"28 days"
+	    
+		private String description;
+	    
+	    @CreationTimestamp
+		@Column(name = "created_at", updatable = false)
+		private LocalDateTime createdAt;
+}

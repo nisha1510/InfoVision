@@ -1,0 +1,77 @@
+package com.telecom.customer.service;
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.telecom.customer.entity.Customer;
+import com.telecom.customer.exceptions.ResourceNotFoundException;
+import com.telecom.customer.repository.CustomerRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository repo;
+
+    public List<Customer> getAll() { 
+    	return repo.findAll(); 
+    }
+
+    public Customer getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Customer ID must not be null.");
+        }
+
+        return repo.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Customer with ID " + id + " not found."));
+    }
+
+    public Customer save(Customer customer) {
+        validateCustomer(customer);
+
+        if (repo.existsByEmail(customer.getEmail())) {
+            throw new IllegalArgumentException("Customer with email '" + customer.getEmail() + "' already exists.");
+        }
+
+        if (repo.existsByMobile(customer.getMobile())) {
+            throw new IllegalArgumentException("Customer with mobile '" + customer.getMobile() + "' already exists.");
+        }
+
+        return repo.save(customer);
+    }
+
+    public void delete(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Customer ID must not be null.");
+        }
+
+        if (!repo.existsById(id)) {
+            throw new ResourceNotFoundException("Customer with ID " + id + " does not exist.");
+        }
+
+        repo.deleteById(id);
+    }
+    
+    private void validateCustomer(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer object must not be null.");
+        }
+
+        if (customer.getName() == null || customer.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Customer name is required.");
+        }
+
+        if (customer.getMobile() == null || !customer.getMobile().matches("\\d{10}")) {
+            throw new IllegalArgumentException("Mobile number must be a valid 10-digit number.");
+        }
+
+        if (customer.getEmail() == null || !customer.getEmail().matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            throw new IllegalArgumentException("Email format is invalid.");
+        }
+    }
+
+}

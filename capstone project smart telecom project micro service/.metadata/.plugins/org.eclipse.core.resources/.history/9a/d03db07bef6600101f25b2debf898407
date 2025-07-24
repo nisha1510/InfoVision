@@ -1,0 +1,22 @@
+package com.smarttelecom.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.smarttelecom.dto.UserWithPlanDTO;
+import com.smarttelecom.serviceImpl.UserServiceImpl;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+	
+	@Autowired
+	private UserServiceImpl service;
+	
+	@GetMapping("/with-plan/{userId}")
+	public ResponseEntity<UserWithPlanDTO> getUserWithPlan(@PathVariable String userId) {
+	    return ResponseEntity.ok(service.getUserWithPlan(userId));
+	}
+
+}

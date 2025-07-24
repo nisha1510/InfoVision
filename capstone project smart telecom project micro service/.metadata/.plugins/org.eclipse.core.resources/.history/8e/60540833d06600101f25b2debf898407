@@ -1,0 +1,47 @@
+package com.smarttelecom.serviceImpl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.smarttelecom.dto.PlanDTO;
+import com.smarttelecom.entity.Plan;
+import com.smarttelecom.repository.PlanRepository;
+
+@Service
+public class PlanServiceImpl {
+
+    @Autowired private PlanRepository repo;
+
+    public PlanDTO createPlan(PlanDTO dto) {
+        dto.setId(UUID.randomUUID().toString());
+        Plan plan = new Plan(dto.getId(), dto.getName(), dto.getType(), dto.getPrice(), dto.getValidity(), dto.getFeatures());
+        plan = repo.save(plan);
+        return toDTO(plan);
+    }
+
+    public List<PlanDTO> getAllPlans() {
+        return repo.findAll().stream().map(this::toDTO).toList();
+    }
+
+    public List<PlanDTO> getPlansByType(String type) {
+        return repo.findByType(type).stream().map(this::toDTO).toList();
+    }
+
+    public List<PlanDTO> getSortedPlans() {
+        return repo.findAllByOrderByPriceAsc().stream().map(this::toDTO).toList();
+    }
+
+    private PlanDTO toDTO(Plan plan) {
+        PlanDTO dto = new PlanDTO();
+        dto.setId(plan.getId());
+        dto.setName(plan.getName());
+        dto.setType(plan.getType());
+        dto.setPrice(plan.getPrice());
+        dto.setValidity(plan.getValidity());
+        dto.setFeatures(plan.getFeatures());
+        return dto;
+    }
+}

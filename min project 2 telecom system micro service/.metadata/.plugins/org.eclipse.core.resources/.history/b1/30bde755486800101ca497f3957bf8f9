@@ -1,0 +1,25 @@
+package com.telecom.validation;
+
+import com.telecom.entity.Plan;
+
+public class ValidatePlan {
+	
+	private void validatePlan(Plan plan) {
+	    if (plan.getType() == null || plan.getType().isBlank()) {
+	        throw new IllegalArgumentException("Plan type is required.");
+	    }
+
+	    if (plan.getPrice() <= 0) {
+	        throw new IllegalArgumentException("Price must be greater than zero.");
+	    }
+
+	    if (plan.getValidity() == null || plan.getValidity().isBlank()) {
+	        throw new IllegalArgumentException("Validity is required.");
+	    }
+
+	    if (plan.getDescription() == null || plan.getDescription().isBlank()) {
+	        throw new IllegalArgumentException("Description is required.");
+	    }
+	}
+
+}

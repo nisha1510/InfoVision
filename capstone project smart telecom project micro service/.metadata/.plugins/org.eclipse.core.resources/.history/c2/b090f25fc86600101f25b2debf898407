@@ -1,0 +1,12 @@
+package com.smarttelecom.service;
+
+import java.util.List;
+
+import com.smarttelecom.dto.UserDto;
+
+public interface UserService {
+	
+	 public UserDto getUser(String id);	 
+	 public UserDto updateUser(UserDto user);
+	 public List<UserDto> getAllUsers();
+}
