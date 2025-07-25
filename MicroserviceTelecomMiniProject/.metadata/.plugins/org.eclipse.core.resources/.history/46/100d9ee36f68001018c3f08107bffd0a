@@ -1,0 +1,38 @@
+package com.telecom.recharge.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.telecom.recharge.client.CustomerClient;
+import com.telecom.recharge.client.PlanClient;
+import com.telecom.recharge.entity.Recharge;
+import com.telecom.recharge.repository.RechargeRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class RechargeService {
+
+    private final RechargeRepository repo;
+    private final CustomerClient customerClient;
+    private final PlanClient planClient;
+
+    public Recharge createRecharge(Long customerId, Long planId) {
+        Customer customer = customerClient.getCustomerById(customerId);
+        Plan plan = planClient.getPlanById(planId);
+
+        Recharge recharge = new Recharge();
+        recharge.setCustomerId(customer.getId());
+        recharge.setPlanId(plan.getId());
+        recharge.setTimestamp(LocalDateTime.now());
+
+        return repo.save(recharge);
+    }
+
+    public List<Recharge> getHistory(Long customerId) {
+        return repo.findByCustomerId(customerId);
+    }
+}

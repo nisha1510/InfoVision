@@ -1,0 +1,11 @@
+package com.hotel.service.exceptions;
+
+public class ResourceNotFoundException extends RuntimeException{
+	
+	public ResourceNotFpundException(String s) {
+		super(s);
+	}
+	public ResourceNotFpundException() {
+		super("REsource not found..");
+	}
+}

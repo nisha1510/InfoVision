@@ -1,0 +1,30 @@
+package com.telecom.customer.service;
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.telecom.customer.entity.Customer;
+import com.telecom.customer.repository.CustomerRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository repo;
+
+    public List<Customer> getAll() { return repo.findAll(); }
+
+    public Customer getById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+    }
+
+    public Customer save(Customer customer) {
+        return repo.save(customer);
+    }
+
+    public void delete(Long id) { repo.deleteById(id); }
+}

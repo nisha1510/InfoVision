@@ -1,0 +1,5 @@
+package com.telecom.entity;
+
+public class Plan {
+
+}

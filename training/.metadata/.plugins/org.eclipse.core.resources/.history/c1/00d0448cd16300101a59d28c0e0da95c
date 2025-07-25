@@ -1,0 +1,7 @@
+package com.hotel.service.exceptions;
+
+public class ResourceNotFpundException extends RuntimeException{
+	public ResourceNotFpundException(String s) {
+		super(s);
+	}
+}

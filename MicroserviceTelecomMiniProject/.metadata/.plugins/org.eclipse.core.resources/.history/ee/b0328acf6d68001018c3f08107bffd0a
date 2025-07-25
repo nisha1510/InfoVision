@@ -1,0 +1,5 @@
+package com.telecom.recharge;
+
+public interface RechargeRepository {
+
+}

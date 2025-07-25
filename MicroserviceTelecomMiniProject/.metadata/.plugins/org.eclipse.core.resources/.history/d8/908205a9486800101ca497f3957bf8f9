@@ -1,0 +1,33 @@
+package com.telecom.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.telecom.entity.Plan;
+import com.telecom.repository.PlanRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class PlanService {
+	
+	private final PlanRepository repo;
+
+    public List<Plan> getAllPlans() {
+    	return repo.findAll(); 
+    }
+
+    public Plan getById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Plan not found"));
+    }
+
+    public Plan save(Plan plan) { 
+    	return repo.save(plan);
+    }
+
+    public void delete(Long id) { 
+    	repo.deleteById(id); 
+    }
+}

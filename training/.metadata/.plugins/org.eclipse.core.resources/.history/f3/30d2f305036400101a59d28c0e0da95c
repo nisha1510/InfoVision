@@ -1,0 +1,38 @@
+package com.rating.service.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.rating.service.entities.Rating;
+import com.rating.service.repository.RatingRepository;
+import com.rating.service.services.RatingService;
+
+public class RatingServiceImpl implements RatingService{
+	
+	@Autowired
+	private RatingRepository ratingRepo;
+	
+	@Override
+	public Rating create(Rating rating) {
+		return ratingRepo.save(rating);
+	}
+
+	@Override
+	public List<Rating> getRating() {
+		return ratingRepo.findAll();
+	}
+
+	@Override
+	public List<Rating> getRatingById(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Rating> getRatingByHotelId(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

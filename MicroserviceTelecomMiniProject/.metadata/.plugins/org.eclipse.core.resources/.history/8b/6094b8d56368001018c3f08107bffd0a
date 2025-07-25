@@ -1,0 +1,47 @@
+package com.telecom.customer.service;
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.telecom.customer.entity.Customer;
+import com.telecom.customer.repository.CustomerRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository repo;
+
+    public List<Customer> getAll() { 
+    	return repo.findAll(); 
+    }
+
+    public Customer getById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Customer ID must not be null.");
+        }
+
+        return repo.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Customer with ID " + id + " not found."));
+    }
+
+    public Customer save(Customer customer) {
+        return repo.save(customer);
+    }
+
+    public void deleteCustomer(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Customer ID must not be null.");
+        }
+
+        if (!repo.existsById(id)) {
+            throw new ResourceNotFoundException("Customer with ID " + id + " does not exist.");
+        }
+
+        repo.deleteById(id);
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;assignmentPrepaidRecharge&apos; to &apos;CallManagementSystem/src&apos;&#x0D;&#x0A;- Original project: &apos;BankApp&apos;&#x0D;&#x0A;- Destination element: &apos;CallManagementSystem/src&apos;&#x0D;&#x0A;- Original element: &apos;BankApp/src/assignmentPrepaidRecharge&apos;" description="Copy package" destination="=CallManagementSystem/src" element1="/src&lt;assignmentPrepaidRecharge" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1752728347398" version="1.0"/>
+</session>

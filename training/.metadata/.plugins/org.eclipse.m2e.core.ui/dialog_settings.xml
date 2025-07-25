@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="D:\InfoVisionTraining\ServiceREgistryEureka"/>
+			<item value="D:\InfoVisionTraining\RatingService"/>
+			<item value="D:\InfoVisionTraining\HotelService"/>
+			<item value="D:\InfoVisionTraining\UserService"/>
+			<item value="D:\InfoVisionTraining\e_server"/>
+			<item value="D:\InfoVisionTraining\apigateway"/>
+			<item value="D:\InfoVisionTraining\contact_service"/>
+			<item value="D:\InfoVisionTraining\user_service"/>
+			<item value="D:\InfoVisionTraining\TodoListApp"/>
+			<item value="D:\InfoVisionTraining\SalesReport"/>
+			<item value="D:\InfoVisionTraining\course_management"/>
+			<item value="D:\InfoVisionTraining\MongoDBExample"/>
+			<item value="D:\InfoVisionTraining\SpringSecurityExample"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

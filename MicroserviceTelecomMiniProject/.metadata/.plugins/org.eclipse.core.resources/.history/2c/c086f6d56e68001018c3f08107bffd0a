@@ -1,0 +1,5 @@
+package com.telecom.recharge.dto;
+
+public class PlanDTO {
+
+}
